@@ -71,23 +71,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OneDrive 相簿</title>
     <style>
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .gallery img {
-            width: 250px;
-            height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
+        .gallery { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .gallery img { width: 250px; height: auto; border-radius: 10px; cursor: pointer; transition: transform 0.2s; }
+        .gallery img:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -96,27 +82,39 @@
     <div class="gallery" id="photoGallery"></div>
 
     <script>
-        // **手動獲取的 OneDrive 公開圖片連結**
-        const imageUrls = [
-            "https://1drv.ms/i/s!ArjSHwC73QelbZ0g7tRyUpBd8iw?embed=1&width=1000&height=1000",
-            "https://1drv.ms/i/s!ArjSHwC73QelcKv3Oy3fKtT5QSM?e=YCLM0r",
-            "https://1drv.ms/i/s!ArjSHwC73QelceKh9MevHWemEZI?e=akEVXx"
+        // OneDrive 分享連結（這些是原始分享連結，無法直接使用）
+        const sharedLinks = [
+            "https://1drv.ms/i/s!ArjSHwC73QelbXW0B1K6rwnW5Ws?e=DG8WT8",
+            "https://1drv.ms/i/s!ArjSHwC73QelbL3vNhgVr13_jOo?e=zfibhV"
         ];
+
+        function convertOneDriveLink(sharedUrl) {
+            // 取得網址 ID
+            const idMatch = sharedUrl.match(/s!([^?]+)/);
+            if (idMatch && idMatch[1]) {
+                return `https://onedrive.live.com/download?resid=${idMatch[1]}`;
+            }
+            return null;
+        }
 
         // 取得相簿區塊
         const gallery = document.getElementById("photoGallery");
 
-        // 迴圈載入圖片
-        imageUrls.forEach(url => {
-            const img = document.createElement("img");
-            img.src = url;
-            img.alt = "OneDrive 圖片";
-            gallery.appendChild(img);
+        // 迴圈處理 OneDrive 連結
+        sharedLinks.forEach(link => {
+            const imgUrl = convertOneDriveLink(link);
+            if (imgUrl) {
+                const img = document.createElement("img");
+                img.src = imgUrl;
+                img.alt = "OneDrive 圖片";
+                gallery.appendChild(img);
+            }
         });
     </script>
 
 </body>
 </html>
+
 
 						<!-- Three -->
 							<section id="three">
