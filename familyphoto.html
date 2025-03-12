@@ -94,16 +94,16 @@
             gap: 10px;
         }
 
-        .gallery img {
-            width: 150px;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 每行兩列 */
+    gap: 10px; /* 圖片之間的間距 */
+}
 
-        .gallery img:hover {
-            transform: scale(1.1);
-        }
+.gallery img {
+    width: 100%;
+    height: auto;
+}
 
         .lightbox {
             position: fixed;
@@ -160,10 +160,20 @@
         <img src="images/pic02.jpg" alt="圖片3">
     </div>
 
-</body>
-				
+    <script>
+        const lightboxes = document.querySelectorAll('.lightbox');
 
-					</div>
+        lightboxes.forEach(lightbox => {
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    window.location.hash = '';
+                }
+            });
+        });
+    </script>
+	
+</body>
+</div>
 
 				<!-- Contact -->
 					<div style="display: grid; place-items: center;">
